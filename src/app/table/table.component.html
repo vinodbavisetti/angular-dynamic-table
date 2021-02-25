@@ -1,0 +1,49 @@
+<div class="mat-elevation-z8">
+  <h2 class="text-center bg-warning mt-5 p-2">A table</h2>
+  <hr class="w-75 m-2" />
+  <table mat-table class="full-width-table" matSort aria-label="Elements">
+    <!-- all Columns -->
+    <ng-container *ngFor="let colName of displayedColumns; let i = index">
+      <ng-container [matColumnDef]="logicColumns[i]">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ colName }}</th>
+        <td mat-cell *matCellDef="let row">{{ rowDisplay(i, row) }}</td>
+      </ng-container>
+    </ng-container>
+
+    <!-- actions Column -->
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>actions</th>
+      <td mat-cell *matCellDef="let row; let i = index">
+        <img
+          src="assets/remove.svg"
+          alt="svg"
+          style="width: 1rem; cursor: pointer"
+          (click)="deleteRow(row['asdfghjkl'])"
+        />
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="logicColumns"></tr>
+    <tr
+      mat-row
+      *matRowDef="let row; columns: logicColumns"
+      [@row]="'in'"
+      (@row.done)="animEnded()"
+    ></tr>
+  </table>
+  <div class="row w-100">
+    <div class="col-3">
+      <!-- <input #input type="number" class="form-control" /> -->
+    </div>
+    <mat-paginator
+      #paginator
+      [length]="dataSource?.data?.length"
+      [pageIndex]="0"
+      [pageSize]="5"
+      [pageSizeOptions]="[5, 10, 15, 20]"
+      class="col-9 px-0"
+    >
+    </mat-paginator>
+  </div>
+</div>
+<div style="height: 500px"></div>
